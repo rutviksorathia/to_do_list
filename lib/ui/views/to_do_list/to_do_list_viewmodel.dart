@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:hive/hive.dart';
 import 'package:stacked/stacked.dart';
-import 'package:to_do_list/models/toDoList/addToDoList.dart';
+import 'package:to_do_list/models/toDoList/deleteToList.dart';
 import 'package:to_do_list/models/toDoList/listToDoList.dart';
 import 'package:to_do_list/models/toDoList/modelToDoList.dart';
-import 'package:to_do_list/ui/utils/extensions/p_utils.dart';
+import 'package:to_do_list/ui/views/to_do_details/to_do_details_view.dart';
+import 'package:to_do_list/ui/views/to_do_list/to_do_list_view.dart';
 import 'package:to_do_list/ui/views/to_do_upsert/to_do_upsert_view.dart';
 
 enum ToDoStatus {
@@ -20,9 +21,9 @@ class ToDoListViewModel extends BaseViewModel {
 
   final shoppingBox = Hive.box('toDoList');
 
-  ToDoList? addingDat;
+  ToDo? addingDat;
 
-  List<ToDoList> toDoList = [];
+  List<ToDo> toDoList = [];
 
   Future<void> fetchData() async {
     try {
@@ -44,5 +45,16 @@ class ToDoListViewModel extends BaseViewModel {
     if (result != null && result == true) {
       fetchData();
     }
+  }
+
+  void handleToDoListItemTap(ToDo toDo) {
+    Get.to(() => TodoDetailsView(toDo: toDo));
+  }
+
+  Future<void> handleDeleteToDoButtonTap(int index) async {
+    await shoppingBox.deleteAt(index);
+
+    fetchData();
+    notifyListeners();
   }
 }

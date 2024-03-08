@@ -19,7 +19,7 @@ class TodoUpsertViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  ToDoList? addingDat;
+  ToDo? addingDat;
 
   Future<void> addToDoDetails() async {
     String id = getRandomString(10);

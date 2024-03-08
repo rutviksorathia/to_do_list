@@ -1,6 +1,6 @@
 import 'package:to_do_list/ui/views/to_do_list/to_do_list_viewmodel.dart';
 
-class ToDoList {
+class ToDo {
   String id;
   String title;
   String description;
@@ -8,7 +8,7 @@ class ToDoList {
   int timer;
   DateTime createdDate;
 
-  ToDoList({
+  ToDo({
     required this.id,
     required this.title,
     required this.description,
@@ -17,8 +17,8 @@ class ToDoList {
     required this.createdDate,
   });
 
-  factory ToDoList.fromMap(Map<dynamic, dynamic> map) {
-    return ToDoList(
+  factory ToDo.fromMap(Map<dynamic, dynamic> map) {
+    return ToDo(
       id: map['id'],
       title: map['title'],
       description: map['description'],

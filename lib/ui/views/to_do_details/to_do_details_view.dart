@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:stacked/stacked.dart';
+import 'package:to_do_list/models/toDoList/modelToDoList.dart';
 import 'package:to_do_list/ui/views/to_do_details/to_do_details_viewmodel.dart';
 
 class TodoDetailsView extends StatelessWidget {
-  const TodoDetailsView({super.key});
+  final ToDo toDo;
+  const TodoDetailsView({
+    super.key,
+    required this.toDo,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +74,9 @@ class TodoDetailsView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Grocery Shopping',
-                        style: TextStyle(
+                      Text(
+                        toDo.title,
+                        style: const TextStyle(
                           fontSize: 26,
                           fontWeight: FontWeight.w600,
                         ),
@@ -86,15 +91,22 @@ class TodoDetailsView extends StatelessWidget {
                           color: const Color(0xFFFAE8FF),
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        child: const Text(
-                          'In progress',
-                          style: TextStyle(
+                        child: Text(
+                          toDo.status.name,
+                          style: const TextStyle(
                             fontSize: 16,
                             color: Color(0xFFC026D3),
                           ),
                         ),
                       ),
                       const SizedBox(height: 16),
+                      Text(
+                        toDo.description,
+                        style: const TextStyle(
+                          fontSize: 32,
+                          color: Color(0xFF7C7C7C),
+                        ),
+                      ),
                     ],
                   ),
                 ),
