@@ -1,13 +1,19 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:to_do_list/ui/views/to_do_details/to_do_details_viewmodel.dart';
 
 class BaseTimer extends StatefulWidget {
   int start;
+  Function tapPlayButtonTap;
+  void Function(int) tapStopButtonTap;
 
   BaseTimer({
     super.key,
     required this.start,
+    required this.tapPlayButtonTap,
+    required this.tapStopButtonTap,
   });
 
   @override
@@ -16,6 +22,7 @@ class BaseTimer extends StatefulWidget {
 
 class _BaseTimerState extends State<BaseTimer> {
   Timer? timer;
+  bool showPlayButton = true;
 
   String time = "";
 
@@ -37,10 +44,19 @@ class _BaseTimerState extends State<BaseTimer> {
         }
       },
     );
+
+    setState(() {
+      widget.tapPlayButtonTap.call();
+      showPlayButton = false;
+    });
   }
 
   void stopTimer() {
     timer?.cancel();
+    setState(() {
+      widget.tapStopButtonTap(widget.start--);
+      showPlayButton = true;
+    });
     convertSecondToTime();
   }
 
@@ -77,7 +93,7 @@ class _BaseTimerState extends State<BaseTimer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ElevatedButton(
-                onPressed: () => startTimer(),
+                onPressed: showPlayButton ? () => startTimer() : null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF7C3AED),
                   padding: const EdgeInsets.symmetric(
@@ -89,7 +105,7 @@ class _BaseTimerState extends State<BaseTimer> {
                   ),
                 ),
                 child: const Text(
-                  'Start',
+                  'Play',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white,
@@ -98,7 +114,7 @@ class _BaseTimerState extends State<BaseTimer> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () => stopTimer(),
+                onPressed: showPlayButton ? null : () => stopTimer(),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF7C3AED),
                   padding: const EdgeInsets.symmetric(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
 import 'package:to_do_list/models/toDoList/modelToDoList.dart';
 import 'package:to_do_list/ui/views/to_do_list/to_do_list_viewmodel.dart';
@@ -102,8 +103,10 @@ class TodoListItem extends ViewModelWidget<ToDoListViewModel> {
 
   @override
   Widget build(BuildContext context, model) {
-    double givenNumber() {
-      return toDoList.time / 60;
+    String convertSecondToTime() {
+      int min = (toDoList.time % 3600) ~/ 60;
+      int sec = toDoList.time % 60;
+      return "${min.toString().padLeft(2, '0')}:${sec.toString().padLeft(2, '0')}";
     }
 
     return GestureDetector(
@@ -194,7 +197,7 @@ class TodoListItem extends ViewModelWidget<ToDoListViewModel> {
                           ),
                           const SizedBox(width: 3),
                           Text(
-                            givenNumber().toString().substring(0, 1),
+                            convertSecondToTime(),
                             style: const TextStyle(
                               fontSize: 12,
                               color: Color(0xFF2563EB),
@@ -213,9 +216,9 @@ class TodoListItem extends ViewModelWidget<ToDoListViewModel> {
                         color: const Color(0xFFFEF3C7),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: const Text(
-                        'Created',
-                        style: TextStyle(
+                      child: Text(
+                        toDoList.status.name.capitalizeFirst.toString(),
+                        style: const TextStyle(
                           fontSize: 12,
                           color: Color(0xFFD97706),
                         ),

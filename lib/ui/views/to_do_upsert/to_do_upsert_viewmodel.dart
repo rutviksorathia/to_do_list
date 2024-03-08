@@ -71,6 +71,7 @@ class TodoUpsertViewModel extends BaseViewModel {
             description: descriptionController.text,
             time: selectedTime * 60,
             createdDate: DateTime.now(),
+            status: toDo!.status,
           ));
 
       Get.back(result: true);

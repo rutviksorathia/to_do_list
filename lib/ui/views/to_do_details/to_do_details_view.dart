@@ -120,6 +120,18 @@ class TodoDetailsView extends StatelessWidget {
                 ),
                 BaseTimer(
                   start: model.toDo.time,
+                  tapPlayButtonTap: () {
+                    model.selectedStatus = ToDoStatus.inProgress;
+                    model.toDo.status = model.selectedStatus;
+
+                    model.updateToDoDetails();
+                    model.notifyListeners();
+                  },
+                  tapStopButtonTap: (int) {
+                    model.toDo.time = int;
+                    model.updateToDoDetails();
+                    model.notifyListeners();
+                  },
                 ),
               ],
             ),

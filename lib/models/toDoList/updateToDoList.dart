@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:to_do_list/ui/views/to_do_details/to_do_details_viewmodel.dart';
 
 class UpdateToDoList {
   String id;
@@ -6,6 +7,7 @@ class UpdateToDoList {
   String description;
   int time;
   DateTime createdDate;
+  ToDoStatus status;
 
   UpdateToDoList({
     required this.id,
@@ -13,6 +15,7 @@ class UpdateToDoList {
     required this.description,
     required this.time,
     required this.createdDate,
+    required this.status,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,6 +25,7 @@ class UpdateToDoList {
       'description': description,
       'time': time,
       'createdDate': createdDate.millisecondsSinceEpoch,
+      'status': status.name,
     };
   }
 }

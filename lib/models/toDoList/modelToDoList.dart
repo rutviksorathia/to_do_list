@@ -23,7 +23,8 @@ class ToDo {
       id: map['id'],
       title: map['title'],
       description: map['description'],
-      status: ToDoStatus.created,
+      status: ToDoStatus.values.firstWhere((e) => e.name == map['status'],
+          orElse: () => ToDoStatus.created),
       time: map['time'],
       createdDate: DateTime.fromMillisecondsSinceEpoch(map['createdDate']),
     );
