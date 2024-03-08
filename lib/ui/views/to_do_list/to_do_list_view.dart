@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:stacked/stacked.dart';
 import 'package:to_do_list/ui/views/to_do_list/to_do_list_viewmodel.dart';
+import 'package:to_do_list/ui/views/to_do_upsert/to_do_upsert_view.dart';
 
 class ToDoListView extends StatelessWidget {
   const ToDoListView({super.key});
@@ -45,13 +46,13 @@ class ToDoListView extends StatelessWidget {
                         ),
                       ),
                       child: GestureDetector(
-                        // onTap: () {
-                        //   Get.bottomSheet(
-                        //     const ToDoAddView(),
-                        //     useRootNavigator: true,
-                        //     isScrollControlled: true,
-                        //   );
-                        // },
+                        onTap: () {
+                          Get.bottomSheet(
+                            const TodoUpsertView(),
+                            useRootNavigator: true,
+                            isScrollControlled: true,
+                          );
+                        },
                         child: const Text(
                           'Add',
                           style: TextStyle(

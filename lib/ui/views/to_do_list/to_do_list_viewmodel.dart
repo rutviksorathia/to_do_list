@@ -42,7 +42,6 @@ class ToDoListViewModel extends BaseViewModel {
 
   Future<void> fetchData() async {
     toDoList = await getToDoList();
-    print(toDoList.length);
 
     notifyListeners();
   }
