@@ -1,3 +1,4 @@
+import 'package:to_do_list/ui/views/to_do_details/to_do_details_viewmodel.dart';
 import 'package:to_do_list/ui/views/to_do_list/to_do_list_viewmodel.dart';
 
 class ToDo {
@@ -5,7 +6,7 @@ class ToDo {
   String title;
   String description;
   ToDoStatus status;
-  int timer;
+  int time;
   DateTime createdDate;
 
   ToDo({
@@ -13,7 +14,7 @@ class ToDo {
     required this.title,
     required this.description,
     required this.status,
-    required this.timer,
+    required this.time,
     required this.createdDate,
   });
 
@@ -23,7 +24,7 @@ class ToDo {
       title: map['title'],
       description: map['description'],
       status: ToDoStatus.created,
-      timer: map['time'],
+      time: map['time'],
       createdDate: DateTime.fromMillisecondsSinceEpoch(map['createdDate']),
     );
   }

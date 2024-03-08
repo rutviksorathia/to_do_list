@@ -102,6 +102,10 @@ class TodoListItem extends ViewModelWidget<ToDoListViewModel> {
 
   @override
   Widget build(BuildContext context, model) {
+    double givenNumber() {
+      return toDoList.time / 60;
+    }
+
     return GestureDetector(
       onTap: () => model.handleToDoListItemTap(toDoList, index),
       child: Container(
@@ -190,7 +194,7 @@ class TodoListItem extends ViewModelWidget<ToDoListViewModel> {
                           ),
                           const SizedBox(width: 3),
                           Text(
-                            toDoList.timer.toString(),
+                            givenNumber().toString().substring(0, 1),
                             style: const TextStyle(
                               fontSize: 12,
                               color: Color(0xFF2563EB),

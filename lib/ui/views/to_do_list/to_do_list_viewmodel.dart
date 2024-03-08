@@ -9,12 +9,6 @@ import 'package:to_do_list/ui/views/to_do_details/to_do_details_view.dart';
 import 'package:to_do_list/ui/views/to_do_list/to_do_list_view.dart';
 import 'package:to_do_list/ui/views/to_do_upsert/to_do_upsert_view.dart';
 
-enum ToDoStatus {
-  created,
-  inProgress,
-  done,
-}
-
 class ToDoListViewModel extends BaseViewModel {
   TextEditingController nameController = TextEditingController();
   TextEditingController numberController = TextEditingController();
@@ -47,13 +41,17 @@ class ToDoListViewModel extends BaseViewModel {
     }
   }
 
-  void handleToDoListItemTap(ToDo toDo, int index) {
-    Get.to(
+  Future<void> handleToDoListItemTap(ToDo toDo, int index) async {
+    var result = await Get.to<bool>(
       () => TodoDetailsView(
         toDo: toDo,
         index: index,
       ),
     );
+
+    if (result != null && result == true) {
+      fetchData();
+    }
   }
 
   Future<void> handleDeleteToDoButtonTap(int index) async {

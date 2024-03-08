@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:stacked/stacked.dart';
 import 'package:to_do_list/models/toDoList/modelToDoList.dart';
+import 'package:to_do_list/ui/utils/components/base_timer.dart';
 import 'package:to_do_list/ui/views/to_do_details/to_do_details_viewmodel.dart';
 
 class TodoDetailsView extends StatelessWidget {
@@ -35,7 +36,7 @@ class TodoDetailsView extends StatelessWidget {
                     Row(
                       children: [
                         GestureDetector(
-                          onTap: Get.back,
+                          onTap: () => Get.back(result: true),
                           child: const Icon(
                             Icons.chevron_left,
                             size: 30,
@@ -76,94 +77,49 @@ class TodoDetailsView extends StatelessWidget {
                 ),
                 // const SizedBox(height: 24),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        model.toDo.title,
-                        style: const TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 5,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFFAE8FF),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Text(
-                          model.toDo.status.name,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          model.toDo.title,
                           style: const TextStyle(
-                            fontSize: 16,
-                            color: Color(0xFFC026D3),
+                            fontSize: 26,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        model.toDo.description,
-                        style: const TextStyle(
-                          fontSize: 32,
-                          color: Color(0xFF7C7C7C),
+                        const SizedBox(height: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 5,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFAE8FF),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Text(
+                            model.toDo.status.name,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Color(0xFFC026D3),
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 16),
+                        Text(
+                          model.toDo.description,
+                          style: const TextStyle(
+                            fontSize: 32,
+                            color: Color(0xFF7C7C7C),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 18),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF7C3AED),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 10,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: const Text(
-                          'Start',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF7C3AED),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 10,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: const Text(
-                          'Finish',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                BaseTimer(
+                  start: model.toDo.time,
                 ),
               ],
             ),

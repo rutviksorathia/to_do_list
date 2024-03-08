@@ -4,9 +4,16 @@ import 'package:stacked/stacked.dart';
 import 'package:to_do_list/models/toDoList/modelToDoList.dart';
 import 'package:to_do_list/ui/views/to_do_upsert/to_do_upsert_view.dart';
 
+enum ToDoStatus {
+  created,
+  inProgress,
+  done,
+}
+
 class TodoDetailsViewModel extends BaseViewModel {
   ToDo toDo;
   int index;
+  bool needRefresh = false;
 
   TodoDetailsViewModel({
     required this.toDo,
@@ -24,6 +31,7 @@ class TodoDetailsViewModel extends BaseViewModel {
     );
 
     if (result != null && result == true) {
+      needRefresh = true;
       final shoppingBox = Hive.box('toDoList');
 
       shoppingBox.getAt(index);

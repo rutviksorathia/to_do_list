@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:hive/hive.dart';
@@ -21,7 +23,7 @@ class TodoUpsertViewModel extends BaseViewModel {
     if (toDo != null) {
       titleController.text = toDo!.title;
       descriptionController.text = toDo!.description;
-      selectedTime = toDo!.timer;
+      selectedTime = (toDo!.time / 60).round();
     }
   }
 
@@ -45,7 +47,7 @@ class TodoUpsertViewModel extends BaseViewModel {
           id: id,
           title: titleController.text,
           description: descriptionController.text,
-          time: selectedTime,
+          time: selectedTime * 60,
           createdDate: DateTime.now(),
         ),
       );
@@ -67,7 +69,7 @@ class TodoUpsertViewModel extends BaseViewModel {
             id: toDo!.id,
             title: titleController.text,
             description: descriptionController.text,
-            time: selectedTime,
+            time: selectedTime * 60,
             createdDate: DateTime.now(),
           ));
 
