@@ -6,17 +6,22 @@ import 'package:to_do_list/ui/views/to_do_details/to_do_details_viewmodel.dart';
 
 class TodoDetailsView extends StatelessWidget {
   final ToDo toDo;
+  final int index;
   const TodoDetailsView({
     super.key,
     required this.toDo,
+    required this.index,
   });
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<TodoDetailsViewModel>.reactive(
-      viewModelBuilder: () => TodoDetailsViewModel(),
+      viewModelBuilder: () => TodoDetailsViewModel(
+        toDo: toDo,
+        index: index,
+      ),
       onViewModelReady: (model) {},
-      builder: ((context, viewModel, child) {
+      builder: ((context, model, child) {
         return Scaffold(
           backgroundColor: Colors.white,
           body: Container(
@@ -47,7 +52,7 @@ class TodoDetailsView extends StatelessWidget {
                     ),
                     const Spacer(),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => model.handleEditButtonTap(),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFFEF3C7),
                         padding: const EdgeInsets.symmetric(
@@ -75,7 +80,7 @@ class TodoDetailsView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        toDo.title,
+                        model.toDo.title,
                         style: const TextStyle(
                           fontSize: 26,
                           fontWeight: FontWeight.w600,
@@ -92,7 +97,7 @@ class TodoDetailsView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: Text(
-                          toDo.status.name,
+                          model.toDo.status.name,
                           style: const TextStyle(
                             fontSize: 16,
                             color: Color(0xFFC026D3),
@@ -101,7 +106,7 @@ class TodoDetailsView extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        toDo.description,
+                        model.toDo.description,
                         style: const TextStyle(
                           fontSize: 32,
                           color: Color(0xFF7C7C7C),

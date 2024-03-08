@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:hive/hive.dart';
 import 'package:stacked/stacked.dart';
 import 'package:to_do_list/models/toDoList/addToDoList.dart';
 import 'package:to_do_list/models/toDoList/modelToDoList.dart';
+import 'package:to_do_list/models/toDoList/updateToDoList.dart';
 import 'package:to_do_list/ui/utils/extensions/p_utils.dart';
 
 class TodoUpsertViewModel extends BaseViewModel {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+
+  final ToDo? toDo;
+  final int? index;
+
+  TodoUpsertViewModel({
+    this.toDo,
+    this.index,
+  }) {
+    if (toDo != null) {
+      titleController.text = toDo!.title;
+      descriptionController.text = toDo!.description;
+      selectedTime = toDo!.timer;
+    }
+  }
 
   List<int> time = [1, 2, 3, 4, 5];
 
@@ -33,6 +49,27 @@ class TodoUpsertViewModel extends BaseViewModel {
           createdDate: DateTime.now(),
         ),
       );
+
+      Get.back(result: true);
+
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> updateToDoDetails() async {
+    if (toDo == null || index == null) return;
+    try {
+      updateTodoList(
+          index: index!,
+          updateToDo: UpdateToDoList(
+            id: toDo!.id,
+            title: titleController.text,
+            description: descriptionController.text,
+            time: selectedTime,
+            createdDate: DateTime.now(),
+          ));
 
       Get.back(result: true);
 

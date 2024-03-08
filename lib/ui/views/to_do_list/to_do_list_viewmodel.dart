@@ -47,12 +47,17 @@ class ToDoListViewModel extends BaseViewModel {
     }
   }
 
-  void handleToDoListItemTap(ToDo toDo) {
-    Get.to(() => TodoDetailsView(toDo: toDo));
+  void handleToDoListItemTap(ToDo toDo, int index) {
+    Get.to(
+      () => TodoDetailsView(
+        toDo: toDo,
+        index: index,
+      ),
+    );
   }
 
   Future<void> handleDeleteToDoButtonTap(int index) async {
-    await shoppingBox.deleteAt(index);
+    await deleteTodoList(index: index);
 
     fetchData();
     notifyListeners();

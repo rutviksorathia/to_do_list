@@ -103,7 +103,7 @@ class TodoListItem extends ViewModelWidget<ToDoListViewModel> {
   @override
   Widget build(BuildContext context, model) {
     return GestureDetector(
-      onTap: () => model.handleToDoListItemTap(toDoList),
+      onTap: () => model.handleToDoListItemTap(toDoList, index),
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(

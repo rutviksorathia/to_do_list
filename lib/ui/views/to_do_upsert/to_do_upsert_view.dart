@@ -2,20 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:stacked/stacked.dart';
+import 'package:to_do_list/models/toDoList/modelToDoList.dart';
 import 'package:to_do_list/ui/views/to_do_upsert/to_do_upsert_viewmodel.dart';
 
 class TodoUpsertView extends StatelessWidget {
   final bool isEditMode;
+  final ToDo? toDo;
+  final int? index;
 
   const TodoUpsertView({
     super.key,
     this.isEditMode = false,
+    this.toDo,
+    this.index,
   });
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<TodoUpsertViewModel>.reactive(
-      viewModelBuilder: () => TodoUpsertViewModel(),
+      viewModelBuilder: () => TodoUpsertViewModel(
+        toDo: toDo,
+        index: index,
+      ),
       onViewModelReady: (model) {},
       builder: (context, model, child) {
         return IntrinsicHeight(
@@ -171,8 +179,9 @@ class TodoUpsertView extends StatelessWidget {
                 const SizedBox(height: 20),
                 Center(
                   child: ElevatedButton(
-                    onPressed:
-                        isEditMode ? () {} : () => model.addToDoDetails(),
+                    onPressed: isEditMode
+                        ? () => model.updateToDoDetails()
+                        : () => model.addToDoDetails(),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       padding: const EdgeInsets.symmetric(

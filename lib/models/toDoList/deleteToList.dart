@@ -13,8 +13,8 @@ class DeleteToDoList {
       };
 }
 
-Future<void> deleteTodoList({required ToDo deleteToDo}) async {
+Future<void> deleteTodoList({required int index}) async {
   final shoppingBox = Hive.box('toDoList');
 
-  shoppingBox.delete(deleteToDo.id);
+  shoppingBox.deleteAt(index);
 }

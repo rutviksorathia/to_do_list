@@ -4,18 +4,15 @@ class UpdateToDoList {
   String id;
   String title;
   String description;
-  String status;
   int time;
-
-  DateTime? createdDate;
+  DateTime createdDate;
 
   UpdateToDoList({
     required this.id,
     required this.title,
     required this.description,
-    required this.status,
     required this.time,
-    this.createdDate,
+    required this.createdDate,
   });
 
   Map<String, dynamic> toMap() {
@@ -23,15 +20,15 @@ class UpdateToDoList {
       'id': id,
       'title': title,
       'description': description,
-      'status': status,
       'time': time,
-      'createdDate': createdDate,
+      'createdDate': createdDate.millisecondsSinceEpoch,
     };
   }
 }
 
-Future<void> updateTodoList({required UpdateToDoList updateToDo}) async {
+Future<void> updateTodoList(
+    {required UpdateToDoList updateToDo, required int index}) async {
   final shoppingBox = Hive.box('toDoList');
 
-  shoppingBox.put(updateToDo.id, updateToDo.toMap());
+  shoppingBox.putAt(index, updateToDo.toMap());
 }
