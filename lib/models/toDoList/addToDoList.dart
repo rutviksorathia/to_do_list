@@ -4,18 +4,15 @@ class AddToDoList {
   String id;
   String title;
   String description;
-  String status;
   int time;
-
-  DateTime? createdDate;
+  DateTime createdDate;
 
   AddToDoList({
     required this.id,
     required this.title,
     required this.description,
-    required this.status,
     required this.time,
-    this.createdDate,
+    required this.createdDate,
   });
 
   Map<String, dynamic> toMap() {
@@ -23,9 +20,8 @@ class AddToDoList {
       'id': id,
       'title': title,
       'description': description,
-      'status': status,
       'time': time,
-      'createdDate': createdDate,
+      'createdDate': createdDate.millisecondsSinceEpoch,
     };
   }
 }

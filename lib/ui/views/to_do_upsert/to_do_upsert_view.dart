@@ -153,12 +153,12 @@ class TodoUpsertView extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      DropdownButton<String>(
+                      DropdownButton<int>(
                         value: model.selectedTime,
                         items: model.time.map((t) {
-                          return DropdownMenuItem<String>(
+                          return DropdownMenuItem<int>(
                             value: t,
-                            child: Text(t),
+                            child: Text(t.toString()),
                           );
                         }).toList(),
                         onChanged: (value) =>
@@ -171,9 +171,8 @@ class TodoUpsertView extends StatelessWidget {
                 const SizedBox(height: 20),
                 Center(
                   child: ElevatedButton(
-                    onPressed: () {
-                      // model.handleUpdateButtonTap();
-                    },
+                    onPressed:
+                        isEditMode ? () {} : () => model.addToDoDetails(),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       padding: const EdgeInsets.symmetric(

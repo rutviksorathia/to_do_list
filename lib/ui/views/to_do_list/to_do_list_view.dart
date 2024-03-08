@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/route_manager.dart';
 import 'package:stacked/stacked.dart';
+import 'package:to_do_list/models/toDoList/modelToDoList.dart';
+import 'package:to_do_list/ui/views/to_do_details/to_do_details_view.dart';
 import 'package:to_do_list/ui/views/to_do_list/to_do_list_viewmodel.dart';
 import 'package:to_do_list/ui/views/to_do_upsert/to_do_upsert_view.dart';
 
@@ -12,7 +15,7 @@ class ToDoListView extends StatelessWidget {
     return ViewModelBuilder<ToDoListViewModel>.reactive(
       viewModelBuilder: () => ToDoListViewModel(),
       onViewModelReady: (model) {
-        // model.fetchTodos();
+        model.fetchData();
       },
       builder: ((context, model, child) {
         return Scaffold(
@@ -46,13 +49,7 @@ class ToDoListView extends StatelessWidget {
                         ),
                       ),
                       child: GestureDetector(
-                        onTap: () {
-                          Get.bottomSheet(
-                            const TodoUpsertView(),
-                            useRootNavigator: true,
-                            isScrollControlled: true,
-                          );
-                        },
+                        onTap: () => model.handleAddToDoButtonTap(),
                         child: const Text(
                           'Add',
                           style: TextStyle(
@@ -66,10 +63,14 @@ class ToDoListView extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 24),
-                // ...model.toDoList.map(
-                //   (e) => const TodoListItem(),
-                // ),
-                const TodoListItem(),
+                if (model.busy(model.fetchData))
+                  const Center(child: CircularProgressIndicator())
+                else
+                  ...model.toDoList.map(
+                    (e) => TodoListItem(
+                      toDoList: e,
+                    ),
+                  ),
               ],
             ),
           ),
@@ -80,8 +81,10 @@ class ToDoListView extends StatelessWidget {
 }
 
 class TodoListItem extends StatelessWidget {
+  final ToDoList toDoList;
   const TodoListItem({
     super.key,
+    required this.toDoList,
   });
 
   @override
@@ -106,17 +109,17 @@ class TodoListItem extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Row(
+          Row(
             children: [
               Text(
-                'Grocery Shopping',
-                style: TextStyle(
+                toDoList.title,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              Spacer(),
-              Icon(
+              const Spacer(),
+              const Icon(
                 Icons.delete,
                 color: Colors.red,
               ),
@@ -124,7 +127,7 @@ class TodoListItem extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            toDoList.description,
             style: TextStyle(
               fontSize: 12,
               color: Colors.grey.shade800,
@@ -138,9 +141,9 @@ class TodoListItem extends StatelessWidget {
           const SizedBox(height: 5),
           Row(
             children: [
-              const Text(
-                '12th July 2021',
-                style: TextStyle(
+              Text(
+                toDoList.createdDate.toString(),
+                style: const TextStyle(
                   fontSize: 12,
                   color: Color(0xFF7B7B7B),
                 ),
@@ -157,17 +160,17 @@ class TodoListItem extends StatelessWidget {
                       color: const Color(0xFFDBEAFE),
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const Row(
+                    child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.access_time,
                           size: 12,
                           color: Color(0xFF2563EB),
                         ),
-                        SizedBox(width: 3),
+                        const SizedBox(width: 3),
                         Text(
-                          '04:25',
-                          style: TextStyle(
+                          toDoList.timer.toString(),
+                          style: const TextStyle(
                             fontSize: 12,
                             color: Color(0xFF2563EB),
                           ),
