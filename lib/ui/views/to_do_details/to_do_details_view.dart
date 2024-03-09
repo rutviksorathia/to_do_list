@@ -155,7 +155,16 @@ class TodoDetailsView extends StatelessWidget {
                     },
                   )
                 else
-                  const Text('Task Completed')
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Container(
+                      color: Colors.amberAccent,
+                      width: double.infinity,
+                      child: const Text(
+                        'Task Completed',
+                      ),
+                    ),
+                  )
               ],
             ),
           ),
