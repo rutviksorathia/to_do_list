@@ -8,7 +8,6 @@ import 'package:to_do_list/models/toDoList/listToDoList.dart';
 import 'package:to_do_list/models/toDoList/modelToDoList.dart';
 import 'package:to_do_list/ui/views/login/login_view.dart';
 import 'package:to_do_list/ui/views/to_do_details/to_do_details_view.dart';
-import 'package:to_do_list/ui/views/to_do_list/to_do_list_view.dart';
 import 'package:to_do_list/ui/views/to_do_upsert/to_do_upsert_view.dart';
 
 class ToDoListViewModel extends BaseViewModel {

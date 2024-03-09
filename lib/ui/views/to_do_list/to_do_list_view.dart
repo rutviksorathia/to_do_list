@@ -1,10 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:smooth_corner/smooth_corner.dart';
 import 'package:stacked/stacked.dart';
 import 'package:to_do_list/models/toDoList/modelToDoList.dart';
 import 'package:to_do_list/ui/views/to_do_list/to_do_list_viewmodel.dart';
@@ -46,9 +41,9 @@ class ToDoListView extends StatelessWidget {
                       child: const Text(
                         'Logout',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 20,
                           color: Colors.red,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
@@ -241,6 +236,7 @@ class TodoListItem extends ViewModelWidget<ToDoListViewModel> {
           ],
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [

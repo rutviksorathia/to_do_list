@@ -1,12 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:to_do_list/firebase_options.dart';
-import 'package:to_do_list/ui/views/login/login_view.dart';
 import 'package:to_do_list/ui/views/startup/startup_view.dart';
-import 'package:to_do_list/ui/views/to_do_list/to_do_list_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

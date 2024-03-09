@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+import 'package:smooth_corner/smooth_corner.dart';
 import 'package:stacked/stacked.dart';
 import 'package:to_do_list/models/toDoList/modelToDoList.dart';
 import 'package:to_do_list/ui/utils/components/base_timer.dart';
@@ -28,105 +29,98 @@ class TodoDetailsView extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.white,
           body: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: MediaQuery.of(context).padding.top + 10),
-                Row(
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      fit: FlexFit.tight,
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () async {
-                              await model.updateToDoDetails(model.toDo);
-                              Get.back(result: true);
-                            },
-                            child: const Icon(
-                              Icons.chevron_left,
-                              size: 30,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        fit: FlexFit.tight,
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () async {
+                                await model.updateToDoDetails(model.toDo);
+                                Get.back(result: true);
+                              },
+                              child: const Icon(
+                                Icons.chevron_left,
+                                size: 30,
+                              ),
                             ),
-                          ),
-                          const Text(
-                            'Back',
+                            const Text(
+                              'Back',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (model.toDo.status != ToDoStatus.done &&
+                          model.shouldShowEditButton)
+                        GestureDetector(
+                          onTap: () => model.handleEditButtonTap(),
+                          child: const Text(
+                            'Edit',
                             style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Color(0xFFD97706),
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    if (model.toDo.status != ToDoStatus.done &&
-                        model.shouldShowEditButton)
-                      ElevatedButton(
-                        onPressed: model.selectedStatus != ToDoStatus.done
-                            ? () => model.handleEditButtonTap()
-                            : null,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFEF3C7),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 10,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
                         ),
-                        child: const Text(
-                          'Edit',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
                 // const SizedBox(height: 24),
                 Expanded(
                   child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          model.toDo.title,
-                          style: const TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 5,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFFAE8FF),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Text(
-                            model.currentStatus.capitalizeFirst.toString(),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            model.toDo.title,
                             style: const TextStyle(
-                              fontSize: 16,
-                              color: Color(0xFFC026D3),
+                              fontSize: 26,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          model.toDo.description,
-                          style: const TextStyle(
-                            fontSize: 32,
-                            color: Color(0xFF7C7C7C),
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFFAE8FF),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Text(
+                              model.currentStatus.capitalizeFirst.toString(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Color(0xFFC026D3),
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 16),
+                          Text(
+                            model.toDo.description,
+                            style: const TextStyle(
+                              fontSize: 32,
+                              color: Color(0xFF7C7C7C),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -158,14 +152,50 @@ class TodoDetailsView extends StatelessWidget {
                     },
                   )
                 else
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Container(
-                      color: Colors.amberAccent,
-                      width: double.infinity,
-                      child: const Text(
-                        'Task Completed',
+                  Container(
+                    height: 80,
+                    width: double.infinity,
+                    decoration: ShapeDecoration(
+                      shadows: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 3,
+                          blurRadius: 3,
+                          offset: const Offset(0, 0),
+                        ),
+                      ],
+                      shape: SmoothRectangleBorder(
+                        smoothness: 1.0,
+                        borderRadius: const BorderRadius.only(),
                       ),
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 36, vertical: 16),
+                      child: Container(
+                          decoration: ShapeDecoration(
+                            shape: SmoothRectangleBorder(
+                              side: const BorderSide(
+                                color: Color(0xFF10B981),
+                                width: 1,
+                              ),
+                              smoothness: 1.0,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            color: const Color(0xFFD1FAE5),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              'Task has been Completed',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Color(0xFF10B981),
+                                fontWeight: FontWeight.w600,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          )),
                     ),
                   )
               ],

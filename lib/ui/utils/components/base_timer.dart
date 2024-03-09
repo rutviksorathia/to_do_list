@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:smooth_corner/smooth_corner.dart';
 import 'package:to_do_list/ui/utils/extensions/p_utils.dart';
 import 'package:to_do_list/ui/views/to_do_details/to_do_details_viewmodel.dart';
 
@@ -183,10 +184,27 @@ class _BaseTimerState extends State<BaseTimer> {
                     ),
                   ),
                 ),
-              if (time != null)
-                Text('time : $time')
-              else
-                Text('Time : ${timeConverter(widget.start)}'),
+              Container(
+                decoration: ShapeDecoration(
+                  shape: SmoothRectangleBorder(
+                    smoothness: 1.0,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  color: Colors.grey[200],
+                ),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
+                    time != null ? '$time' : timeConverter(widget.start),
+                    style: const TextStyle(
+                      fontSize: 24,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
               ElevatedButton(
                 onPressed: () => stopTimer(),
                 style: ElevatedButton.styleFrom(
