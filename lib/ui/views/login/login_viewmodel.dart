@@ -6,12 +6,14 @@ import 'package:to_do_list/ui/views/to_do_list/to_do_list_view.dart';
 
 class LoginViewModel extends BaseViewModel {
   bool isLogin;
+
   LoginViewModel({required this.isLogin});
 
-  String username = '';
-  String email = '';
-  String password = '';
-  String confirmPassword = '';
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
 
@@ -20,9 +22,10 @@ class LoginViewModel extends BaseViewModel {
   }
 
   void toggleAuthMode() {
-    email = '';
-    password = '';
-    confirmPassword = '';
+    usernameController.clear();
+    emailController.clear();
+    passwordController.clear();
+    confirmPasswordController.clear();
     isLogin = !isLogin;
     notifyListeners();
   }
@@ -82,7 +85,7 @@ class LoginViewModel extends BaseViewModel {
   }
 
   Future<void> handleRegisterButtonTap(String email, String password) async {
-    if (password != confirmPassword) {
+    if (passwordController.text != confirmPasswordController.text) {
       Get.snackbar('Error', 'Password and confirm password do not match',
           isDismissible: true,
           colorText: Colors.white,

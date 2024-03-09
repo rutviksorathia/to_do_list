@@ -77,6 +77,7 @@ class LoginView extends StatelessWidget {
                           if (!model.isLogin)
                             TextFormField(
                               key: const ValueKey('username'),
+                              controller: model.usernameController,
                               decoration: const InputDecoration(
                                 labelText: 'Enter Username',
                                 border: OutlineInputBorder(
@@ -90,11 +91,13 @@ class LoginView extends StatelessWidget {
                               ),
                               validator: ((value) =>
                                   model.validateUsername(value)),
-                              onSaved: (value) => model.username = value!,
+                              onSaved: (value) =>
+                                  model.usernameController.text = value!,
                             ),
                           const SizedBox(height: 20),
                           TextFormField(
                             key: const ValueKey('email'),
+                            controller: model.emailController,
                             decoration: const InputDecoration(
                               labelText: 'Enter Email',
                               border: OutlineInputBorder(
@@ -107,11 +110,13 @@ class LoginView extends StatelessWidget {
                               ),
                             ),
                             validator: (value) => model.validateEmail(value),
-                            onSaved: (value) => model.email = value!,
+                            onSaved: (value) =>
+                                model.emailController.text = value!,
                           ),
                           const SizedBox(height: 20),
                           TextFormField(
                             key: const ValueKey('password'),
+                            controller: model.passwordController,
                             obscureText: !model.isPasswordVisible,
                             decoration: InputDecoration(
                               labelText: 'Enter Password',
@@ -132,12 +137,14 @@ class LoginView extends StatelessWidget {
                                   const BoxConstraints.tightFor(height: 50),
                             ),
                             validator: (value) => model.validatePassword(value),
-                            onSaved: (value) => model.password = value!,
+                            onSaved: (value) =>
+                                model.passwordController.text = value!,
                           ),
                           const SizedBox(height: 20),
                           if (!model.isLogin)
                             TextFormField(
                               key: const ValueKey('Confirm Password'),
+                              controller: model.confirmPasswordController,
                               obscureText: !model.isConfirmPasswordVisible,
                               decoration: InputDecoration(
                                 labelText: 'Confirm Password',
@@ -158,7 +165,7 @@ class LoginView extends StatelessWidget {
                               validator: (value) =>
                                   model.validateConfirmPassword(value),
                               onSaved: (value) =>
-                                  model.confirmPassword = value!,
+                                  model.confirmPasswordController.text = value!,
                             ),
                           const SizedBox(height: 24),
                           Center(
@@ -170,10 +177,12 @@ class LoginView extends StatelessWidget {
                                   formKey.currentState!.save();
                                   if (model.isLogin) {
                                     model.handleLoginButtonTap(
-                                        model.email, model.password);
+                                        model.emailController.text,
+                                        model.passwordController.text);
                                   } else {
                                     model.handleRegisterButtonTap(
-                                        model.email, model.password);
+                                        model.emailController.text,
+                                        model.passwordController.text);
                                   }
                                 }
                               },
