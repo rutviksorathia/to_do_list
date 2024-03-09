@@ -1,5 +1,4 @@
 import 'package:to_do_list/ui/views/to_do_details/to_do_details_viewmodel.dart';
-import 'package:to_do_list/ui/views/to_do_list/to_do_list_viewmodel.dart';
 
 class ToDo {
   String id;

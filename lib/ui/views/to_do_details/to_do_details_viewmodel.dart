@@ -14,13 +14,23 @@ enum ToDoStatus {
 class TodoDetailsViewModel extends BaseViewModel {
   ToDo toDo;
   int index;
-  bool needRefresh = false;
+
   ToDoStatus selectedStatus = ToDoStatus.created;
 
   TodoDetailsViewModel({
     required this.toDo,
     required this.index,
   });
+
+  String get currentStatus {
+    if (toDo.time == 0) {
+      selectedStatus = ToDoStatus.done;
+      toDo.status = selectedStatus;
+      return toDo.status.name;
+    } else {
+      return toDo.status.name;
+    }
+  }
 
   Future<void> handleEditButtonTap() async {
     var result = await Get.bottomSheet<bool>(
@@ -34,7 +44,6 @@ class TodoDetailsViewModel extends BaseViewModel {
     );
 
     if (result != null && result == true) {
-      needRefresh = true;
       final shoppingBox = Hive.box('toDoList');
 
       shoppingBox.getAt(index);
@@ -45,15 +54,15 @@ class TodoDetailsViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> updateToDoDetails() async {
+  Future<void> updateToDoDetails(ToDo toDoItem) async {
     try {
       updateTodoList(
           index: index,
           updateToDo: UpdateToDoList(
-            id: toDo.id,
-            title: toDo.title,
-            description: toDo.description,
-            time: toDo.time,
+            id: toDoItem.id,
+            title: toDoItem.title,
+            description: toDoItem.description,
+            time: toDoItem.time,
             createdDate: DateTime.now(),
             status: selectedStatus,
           ));

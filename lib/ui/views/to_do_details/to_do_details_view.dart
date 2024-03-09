@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:stacked/stacked.dart';
 import 'package:to_do_list/models/toDoList/modelToDoList.dart';
@@ -33,46 +35,55 @@ class TodoDetailsView extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).padding.top + 10),
                 Row(
                   children: [
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () => Get.back(result: true),
-                          child: const Icon(
-                            Icons.chevron_left,
-                            size: 30,
+                    Flexible(
+                      flex: 1,
+                      fit: FlexFit.tight,
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () async {
+                              await model.updateToDoDetails(model.toDo);
+                              Get.back(result: true);
+                            },
+                            child: const Icon(
+                              Icons.chevron_left,
+                              size: 30,
+                            ),
+                          ),
+                          const Text(
+                            'Back',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (model.toDo.status != ToDoStatus.done)
+                      ElevatedButton(
+                        onPressed: model.selectedStatus != ToDoStatus.done
+                            ? () => model.handleEditButtonTap()
+                            : null,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFFEF3C7),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 10,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        const Text(
-                          'Back',
+                        child: const Text(
+                          'Edit',
                           style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                      ],
-                    ),
-                    const Spacer(),
-                    ElevatedButton(
-                      onPressed: () => model.handleEditButtonTap(),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFFEF3C7),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 10,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
                       ),
-                      child: const Text(
-                        'Edit',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
                 // const SizedBox(height: 24),
@@ -99,7 +110,7 @@ class TodoDetailsView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: Text(
-                            model.toDo.status.name,
+                            model.currentStatus.capitalizeFirst.toString(),
                             style: const TextStyle(
                               fontSize: 16,
                               color: Color(0xFFC026D3),
@@ -118,21 +129,33 @@ class TodoDetailsView extends StatelessWidget {
                     ),
                   ),
                 ),
-                BaseTimer(
-                  start: model.toDo.time,
-                  tapPlayButtonTap: () {
-                    model.selectedStatus = ToDoStatus.inProgress;
-                    model.toDo.status = model.selectedStatus;
+                if (model.toDo.status != ToDoStatus.done)
+                  BaseTimer(
+                    start: model.toDo.time,
+                    status: model.selectedStatus,
+                    tapPlayButtonTap: (time) async {
+                      model.selectedStatus = ToDoStatus.inProgress;
+                      model.toDo.status = model.selectedStatus;
+                      model.toDo.time = time;
+                      model.updateToDoDetails(model.toDo);
+                      model.notifyListeners();
+                    },
+                    tapStopButtonTap: (int) {
+                      model.toDo.time = int;
+                      model.updateToDoDetails(model.toDo);
+                      model.notifyListeners();
+                    },
+                    tapFinishButtonTap: () {
+                      model.selectedStatus = ToDoStatus.done;
+                      model.toDo.status = model.selectedStatus;
+                      model.toDo.time = 0;
 
-                    model.updateToDoDetails();
-                    model.notifyListeners();
-                  },
-                  tapStopButtonTap: (int) {
-                    model.toDo.time = int;
-                    model.updateToDoDetails();
-                    model.notifyListeners();
-                  },
-                ),
+                      model.updateToDoDetails(model.toDo);
+                      model.notifyListeners();
+                    },
+                  )
+                else
+                  const Text('Task Completed')
               ],
             ),
           ),

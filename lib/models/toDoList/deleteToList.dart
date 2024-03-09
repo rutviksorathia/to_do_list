@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:to_do_list/models/toDoList/modelToDoList.dart';
 
 class DeleteToDoList {
   String id;

@@ -50,6 +50,7 @@ class ToDoListViewModel extends BaseViewModel {
     );
 
     if (result != null && result == true) {
+      print('hello');
       fetchData();
     }
   }
