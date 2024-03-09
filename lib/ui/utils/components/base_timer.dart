@@ -28,7 +28,7 @@ class BaseTimer extends StatefulWidget {
 class _BaseTimerState extends State<BaseTimer> {
   Timer? timer;
 
-  String time = '00:00';
+  String? time;
 
   void startButton() {
     setState(() {
@@ -84,19 +84,17 @@ class _BaseTimerState extends State<BaseTimer> {
     });
   }
 
-  // void convertSecondToTime() {
-  //   int min = (widget.start % 3600) ~/ 60;
-  //   int sec = widget.start % 60;
-  //   setState(() {
-  //     time =
-  //         "${min.toString().padLeft(2, '0')}:${sec.toString().padLeft(2, '0')}";
-  //   });
-  // }
-
   void convertSecondToTime() {
     setState(() {
       time = timeConverter(widget.start);
     });
+  }
+
+  @override
+  void didUpdateWidget(covariant BaseTimer oldWidget) {
+    widget.start = widget.start;
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -107,6 +105,7 @@ class _BaseTimerState extends State<BaseTimer> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.start);
     return Column(
       children: <Widget>[
         Container(
@@ -160,7 +159,6 @@ class _BaseTimerState extends State<BaseTimer> {
                     ),
                   ),
                 ),
-              Text('time : $time'),
               if (widget.status == ToDoStatus.inProgress &&
                   timer != null &&
                   timer!.isActive)
@@ -185,6 +183,10 @@ class _BaseTimerState extends State<BaseTimer> {
                     ),
                   ),
                 ),
+              if (time != null)
+                Text('time : $time')
+              else
+                Text('Time : ${timeConverter(widget.start)}'),
               ElevatedButton(
                 onPressed: () => stopTimer(),
                 style: ElevatedButton.styleFrom(

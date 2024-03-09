@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAJw2YC7TG6rtdm_SxuBLa7x--UUQZ5AqY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>556892509400</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.toDoList</string>
+	<key>PROJECT_ID</key>
+	<string>rutvik-todo</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rutvik-todo.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:556892509400:ios:c733ed0bc719b0d4e033ad</string>
+</dict>
+</plist>

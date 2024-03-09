@@ -14,7 +14,7 @@ enum ToDoStatus {
 class TodoDetailsViewModel extends BaseViewModel {
   ToDo toDo;
   int index;
-
+  bool shouldShowEditButton = true;
   ToDoStatus selectedStatus = ToDoStatus.created;
 
   TodoDetailsViewModel({
@@ -48,7 +48,9 @@ class TodoDetailsViewModel extends BaseViewModel {
 
       shoppingBox.getAt(index);
       Map<dynamic, dynamic> map = shoppingBox.toMap();
-      toDo = ToDo.fromMap(map[index]);
+
+      toDo = ToDo.fromMap(map.entries.elementAt(index).value);
+      toDo.time = toDo.time;
 
       notifyListeners();
     }

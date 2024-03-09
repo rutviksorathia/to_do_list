@@ -60,7 +60,8 @@ class TodoDetailsView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (model.toDo.status != ToDoStatus.done)
+                    if (model.toDo.status != ToDoStatus.done &&
+                        model.shouldShowEditButton)
                       ElevatedButton(
                         onPressed: model.selectedStatus != ToDoStatus.done
                             ? () => model.handleEditButtonTap()
@@ -137,19 +138,21 @@ class TodoDetailsView extends StatelessWidget {
                       model.selectedStatus = ToDoStatus.inProgress;
                       model.toDo.status = model.selectedStatus;
                       model.toDo.time = time;
+                      model.shouldShowEditButton = false;
                       model.updateToDoDetails(model.toDo);
                       model.notifyListeners();
                     },
                     tapStopButtonTap: (int) {
                       model.toDo.time = int;
                       model.updateToDoDetails(model.toDo);
+                      model.shouldShowEditButton = true;
                       model.notifyListeners();
                     },
                     tapFinishButtonTap: () {
                       model.selectedStatus = ToDoStatus.done;
                       model.toDo.status = model.selectedStatus;
                       model.toDo.time = 0;
-
+                      model.shouldShowEditButton = true;
                       model.updateToDoDetails(model.toDo);
                       model.notifyListeners();
                     },

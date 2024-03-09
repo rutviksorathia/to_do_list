@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "556892509400",
+    "project_id": "rutvik-todo",
+    "storage_bucket": "rutvik-todo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556892509400:android:78ab9f89276a521ce033ad",
+        "android_client_info": {
+          "package_name": "com.example.to_do_list"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClS1k85ukBNFMNqrZ6vefJzIB4zsnvVOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
