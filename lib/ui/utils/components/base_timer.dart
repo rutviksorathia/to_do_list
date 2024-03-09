@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/ui/utils/extensions/p_utils.dart';
 import 'package:to_do_list/ui/views/to_do_details/to_do_details_viewmodel.dart';
@@ -33,14 +32,6 @@ class _BaseTimerState extends State<BaseTimer> {
 
   void startButton() {
     setState(() {
-      AwesomeNotifications().createNotification(
-        content: NotificationContent(
-          id: 1,
-          channelKey: 'basic_channel',
-          title: 'Start the timer',
-          body: 'Timer has been started',
-        ),
-      );
       playTimer();
     });
   }

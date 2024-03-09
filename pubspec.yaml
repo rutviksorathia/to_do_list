@@ -42,7 +42,6 @@ dependencies:
   smooth_corner: ^1.1.0
   firebase_core: ^2.27.0
   firebase_auth: ^4.17.8
-  awesome_notifications: ^0.9.2
 
 dev_dependencies:
   flutter_test:
