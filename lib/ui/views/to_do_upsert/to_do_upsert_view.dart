@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/route_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:stacked/stacked.dart';
@@ -81,7 +83,7 @@ class TodoUpsertView extends StatelessWidget {
                                   Text(
                                     isEditMode ? 'Edit Todo' : 'Add ToDo',
                                     style: const TextStyle(
-                                      color: Colors.blue,
+                                      color: Colors.black,
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -112,13 +114,12 @@ class TodoUpsertView extends StatelessWidget {
                       const Text(
                         'Title',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 8),
                       Container(
-                        padding: const EdgeInsets.only(left: 10),
                         decoration: ShapeDecoration(
                           shape: SmoothRectangleBorder(
                             smoothness: 1,
@@ -129,44 +130,63 @@ class TodoUpsertView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        child: TextField(
+                        child: TextFormField(
                           controller: model.titleController,
+                          decoration: const InputDecoration(
+                            hintText: 'Title goes here...',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            constraints: BoxConstraints.tightFor(
+                              height: 50,
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 20),
                       const Text(
                         'Description',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Container(
-                        padding: const EdgeInsets.only(left: 10),
-                        decoration: ShapeDecoration(
-                          shape: SmoothRectangleBorder(
-                            smoothness: 1,
-                            borderRadius: BorderRadius.circular(10),
-                            side: const BorderSide(
-                              color: Colors.blue,
-                              width: 1,
+                      TextFormField(
+                        controller: model.descriptionController,
+                        maxLines: 8,
+                        minLines: 4,
+                        decoration: const InputDecoration(
+                          hintText: 'Start typing here...',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
                             ),
                           ),
-                        ),
-                        child: TextField(
-                          controller: model.descriptionController,
-                          maxLines: 6,
-                          minLines: 4,
+                          constraints: BoxConstraints.expand(
+                            height: 100,
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 12),
+                      const Text(
+                        'Select Time',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       DropdownButton<int>(
                         value: model.selectedTime,
+                        icon: const Icon(Icons.arrow_drop_down),
                         items: model.time.map((t) {
                           return DropdownMenuItem<int>(
                             value: t,
-                            child: Text(t.toString()),
+                            child: Text(
+                              '${t.toString()} Minutes',
+                            ),
                           );
                         }).toList(),
                         onChanged: (value) =>
@@ -176,26 +196,34 @@ class TodoUpsertView extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: isEditMode
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: GestureDetector(
+                    onTap: isEditMode
                         ? () => model.updateToDoDetails()
                         : () => model.addToDoDetails(),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 10,
+                    child: Container(
+                      width: double.infinity,
+                      decoration: ShapeDecoration(
+                        shape: SmoothRectangleBorder(
+                          smoothness: 1.0,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        color: const Color(0xFF7C3AED),
                       ),
-                      shape: SmoothRectangleBorder(
-                        smoothness: 1,
-                        borderRadius: BorderRadius.circular(10),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Text(
+                            isEditMode ? 'Update' : 'Add task',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      isEditMode ? 'Update' : 'Add',
-                      style: const TextStyle(fontSize: 16),
                     ),
                   ),
                 ),
