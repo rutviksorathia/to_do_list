@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:smooth_corner/smooth_corner.dart';
 import 'package:stacked/stacked.dart';
 import 'package:to_do_list/models/toDoList/modelToDoList.dart';
 import 'package:to_do_list/ui/views/to_do_list/to_do_list_viewmodel.dart';
@@ -61,7 +62,32 @@ class ToDoListView extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 24),
+                Container(
+                  width: double.infinity,
+                  decoration: ShapeDecoration(
+                    shape: SmoothRectangleBorder(
+                      smoothness: 1.0,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    color: Colors.grey.shade200,
+                  ),
+                  child: TextFormField(
+                    controller: model.searchTextController,
+                    decoration: const InputDecoration(
+                      hintText: 'Search',
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Colors.grey,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 14),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
@@ -72,13 +98,14 @@ class ToDoListView extends StatelessWidget {
                           ...model.toDoList.map((e) {
                             int index = model.toDoList.indexOf(e);
                             return Padding(
-                              padding: const EdgeInsets.only(top: 14),
+                              padding: const EdgeInsets.only(top: 8, bottom: 8),
                               child: TodoListItem(
                                 toDoList: e,
                                 index: index,
                               ),
                             );
                           }),
+                        const SizedBox(height: 12),
                       ],
                     ),
                   ),

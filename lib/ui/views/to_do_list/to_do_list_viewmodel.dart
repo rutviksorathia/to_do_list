@@ -6,14 +6,18 @@ import 'package:to_do_list/models/toDoList/deleteToList.dart';
 import 'package:to_do_list/models/toDoList/listToDoList.dart';
 import 'package:to_do_list/models/toDoList/modelToDoList.dart';
 import 'package:to_do_list/ui/views/to_do_details/to_do_details_view.dart';
-import 'package:to_do_list/ui/views/to_do_list/to_do_list_view.dart';
 import 'package:to_do_list/ui/views/to_do_upsert/to_do_upsert_view.dart';
 
 class ToDoListViewModel extends BaseViewModel {
   TextEditingController nameController = TextEditingController();
   TextEditingController numberController = TextEditingController();
+  TextEditingController searchTextController = TextEditingController();
 
   final shoppingBox = Hive.box('toDoList');
+
+  ToDoListViewModel() {
+    searchTextController.addListener(fetchSearchData);
+  }
 
   ToDo? addingDat;
 
@@ -50,9 +54,24 @@ class ToDoListViewModel extends BaseViewModel {
     );
 
     if (result != null && result == true) {
-      print('hello');
       fetchData();
     }
+  }
+
+  Future<void> fetchSearchData() async {
+    List<ToDo> searchList = toDoList.where((element) {
+      return element.title
+          .toLowerCase()
+          .contains(searchTextController.text.toLowerCase());
+    }).toList();
+
+    if (searchTextController.text.isEmpty) {
+      fetchData();
+    } else {
+      toDoList = searchList;
+    }
+
+    notifyListeners();
   }
 
   Future<void> handleDeleteToDoButtonTap(int index) async {
