@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 import 'package:stacked/stacked.dart';
@@ -28,63 +30,80 @@ class ToDoListView extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).padding.top + 10),
                 Row(
                   children: [
-                    const Text(
-                      'To Do List',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                    const Flexible(
+                      flex: 1,
+                      fit: FlexFit.tight,
+                      child: Text(
+                        'To Do List',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    const Spacer(),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF7C3AED),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 10,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: GestureDetector(
-                        onTap: () => model.handleAddToDoButtonTap(),
-                        child: const Text(
-                          'Add',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
+                    GestureDetector(
+                      onTap: () => model.handleLogoutButtonTap(),
+                      child: const Text(
+                        'Logout',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ],
                 ),
-                Container(
+                const SizedBox(height: 10),
+                SizedBox(
                   width: double.infinity,
-                  decoration: ShapeDecoration(
-                    shape: SmoothRectangleBorder(
-                      smoothness: 1.0,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    color: Colors.grey.shade200,
-                  ),
-                  child: TextFormField(
-                    controller: model.searchTextController,
-                    decoration: const InputDecoration(
-                      hintText: 'Search',
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: Colors.grey,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        fit: FlexFit.tight,
+                        child: TextFormField(
+                          controller: model.searchTextController,
+                          decoration: const InputDecoration(
+                            hintText: 'Search',
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Colors.grey,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      if (model.toDoList.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: ElevatedButton(
+                            onPressed: () => model.handleAddToDoButtonTap(),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF7C3AED),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 10,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: const Text(
+                              'Add',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 14),
@@ -92,9 +111,7 @@ class ToDoListView extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        if (model.busy(model.fetchData))
-                          const Center(child: CircularProgressIndicator())
-                        else
+                        if (model.toDoList.isNotEmpty)
                           ...model.toDoList.map((e) {
                             int index = model.toDoList.indexOf(e);
                             return Padding(
@@ -104,7 +121,74 @@ class ToDoListView extends StatelessWidget {
                                 index: index,
                               ),
                             );
-                          }),
+                          })
+                        else
+                          Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height / 10,
+                                  bottom: 10,
+                                ),
+                                child: Center(
+                                  child: Image.asset(
+                                    'assets/images/empty_task.png',
+                                    width: 240,
+                                    height: 240,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    'Your Task List of',
+                                    style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    'Empty',
+                                    style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.purple.shade700,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Text(
+                                'Add your regular day to day task now by clicking the below Button',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              ElevatedButton(
+                                onPressed: () => model.handleAddToDoButtonTap(),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF7C3AED),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 10,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Add',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         const SizedBox(height: 12),
                       ],
                     ),

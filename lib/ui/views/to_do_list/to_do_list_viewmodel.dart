@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:hive/hive.dart';
@@ -5,7 +6,9 @@ import 'package:stacked/stacked.dart';
 import 'package:to_do_list/models/toDoList/deleteToList.dart';
 import 'package:to_do_list/models/toDoList/listToDoList.dart';
 import 'package:to_do_list/models/toDoList/modelToDoList.dart';
+import 'package:to_do_list/ui/views/login/login_view.dart';
 import 'package:to_do_list/ui/views/to_do_details/to_do_details_view.dart';
+import 'package:to_do_list/ui/views/to_do_list/to_do_list_view.dart';
 import 'package:to_do_list/ui/views/to_do_upsert/to_do_upsert_view.dart';
 
 class ToDoListViewModel extends BaseViewModel {
@@ -56,6 +59,15 @@ class ToDoListViewModel extends BaseViewModel {
     if (result != null && result == true) {
       fetchData();
     }
+  }
+
+  void handleLogoutButtonTap() async {
+    final auth = FirebaseAuth.instance;
+    await auth.signOut().then((value) {
+      Get.to(
+        () => const LoginView(isLogin: true),
+      );
+    });
   }
 
   Future<void> fetchSearchData() async {

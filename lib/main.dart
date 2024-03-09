@@ -4,6 +4,8 @@ import 'package:get/route_manager.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:to_do_list/firebase_options.dart';
+import 'package:to_do_list/ui/views/login/login_view.dart';
+import 'package:to_do_list/ui/views/startup/startup_view.dart';
 import 'package:to_do_list/ui/views/to_do_list/to_do_list_view.dart';
 
 void main() async {
@@ -25,10 +27,11 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        fontFamily: 'SFPro',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const ToDoListView(),
+      home: const LoginView(),
     );
   }
 }
