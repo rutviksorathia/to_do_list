@@ -93,6 +93,7 @@ class _BaseTimerState extends State<BaseTimer> {
 
   @override
   void didUpdateWidget(covariant BaseTimer oldWidget) {
+    print('hello');
     widget.start = widget.start;
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
@@ -106,7 +107,6 @@ class _BaseTimerState extends State<BaseTimer> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.start);
     return Column(
       children: <Widget>[
         Row(
@@ -194,7 +194,7 @@ class _BaseTimerState extends State<BaseTimer> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Text(
-                  time != null ? '$time' : timeConverter(widget.start),
+                  timeConverter(widget.start),
                   style: const TextStyle(
                     fontSize: 24,
                     color: Colors.black,
