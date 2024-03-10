@@ -142,6 +142,7 @@ class LoginViewModel extends BaseViewModel {
       );
       Get.offAll(() => const ToDoListView());
     } on FirebaseAuthException catch (e) {
+      print(e);
       if (e.code == 'user-not-found') {
         Get.snackbar('Error', 'No user found for that email.',
             isDismissible: true,
@@ -149,8 +150,8 @@ class LoginViewModel extends BaseViewModel {
             snackPosition: SnackPosition.BOTTOM,
             duration: const Duration(seconds: 3),
             backgroundColor: Colors.red);
-      } else if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
-        Get.snackbar('Error', 'Wrong password provided for that user.',
+      } else if (e.code == 'invalid-credential') {
+        Get.snackbar('Error', 'Invalid email or password.',
             isDismissible: true,
             colorText: Colors.white,
             snackPosition: SnackPosition.BOTTOM,

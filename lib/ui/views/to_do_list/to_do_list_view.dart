@@ -294,7 +294,7 @@ class TodoListItem extends ViewModelWidget<ToDoListViewModel> {
             Row(
               children: [
                 Text(
-                  toDoList.createdDate.toString(),
+                  toDoList.createdDate.toString().split(' ')[0],
                   style: const TextStyle(
                     fontSize: 12,
                     color: Color(0xFF7B7B7B),
