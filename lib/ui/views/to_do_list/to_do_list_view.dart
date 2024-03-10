@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
 import 'package:to_do_list/models/toDoList/modelToDoList.dart';
@@ -14,7 +15,7 @@ class ToDoListView extends StatelessWidget {
     return ViewModelBuilder<ToDoListViewModel>.reactive(
       viewModelBuilder: () => ToDoListViewModel(),
       onViewModelReady: (model) {
-        model.fetchData();
+        model.fetchToDoList();
       },
       builder: ((context, model, child) {
         return Scaffold(
@@ -107,16 +108,32 @@ class ToDoListView extends StatelessWidget {
                     child: Column(
                       children: [
                         if (model.toDoList.isNotEmpty)
-                          ...model.toDoList.map((e) {
-                            int index = model.toDoList.indexOf(e);
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 8, bottom: 8),
-                              child: TodoListItem(
-                                toDoList: e,
-                                index: index,
+                          AnimationLimiter(
+                            child: Column(
+                              children: AnimationConfiguration.toStaggeredList(
+                                duration: const Duration(milliseconds: 700),
+                                childAnimationBuilder: (widget) =>
+                                    SlideAnimation(
+                                  verticalOffset: 50.0,
+                                  duration: const Duration(milliseconds: 700),
+                                  child: FadeInAnimation(child: widget),
+                                ),
+                                children: [
+                                  ...model.toDoList.map((e) {
+                                    int index = model.toDoList.indexOf(e);
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 8, bottom: 8),
+                                      child: TodoListItem(
+                                        toDoList: e,
+                                        index: index,
+                                      ),
+                                    );
+                                  })
+                                ],
                               ),
-                            );
-                          })
+                            ),
+                          )
                         else
                           Column(
                             children: [

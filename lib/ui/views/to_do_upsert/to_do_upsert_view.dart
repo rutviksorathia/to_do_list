@@ -188,7 +188,7 @@ class TodoUpsertView extends StatelessWidget {
                           );
                         }).toList(),
                         onChanged: (value) =>
-                            model.handleBaseCurrencyChange(value),
+                            model.handleSelectedTimeChange(value),
                       ),
                       const SizedBox(height: 10),
                     ],

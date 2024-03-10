@@ -28,7 +28,7 @@ class TodoUpsertViewModel extends BaseViewModel {
 
   int selectedTime = 1;
 
-  Future<void> handleBaseCurrencyChange(int? value) async {
+  Future<void> handleSelectedTimeChange(int? value) async {
     if (value == null) return;
     selectedTime = value;
     notifyListeners();

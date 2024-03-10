@@ -18,19 +18,19 @@ class ToDoListViewModel extends BaseViewModel {
   final shoppingBox = Hive.box('toDoList');
 
   ToDoListViewModel() {
-    searchTextController.addListener(fetchSearchData);
+    searchTextController.addListener(fetchToDoSearchData);
   }
 
   ToDo? addingDat;
 
   List<ToDo> toDoList = [];
 
-  Future<void> fetchData() async {
+  Future<void> fetchToDoList() async {
     try {
-      setBusyForObject(fetchData, true);
+      setBusyForObject(fetchToDoList, true);
       toDoList = await getToDoList();
     } finally {
-      setBusyForObject(fetchData, false);
+      setBusyForObject(fetchToDoList, false);
     }
     notifyListeners();
   }
@@ -43,7 +43,7 @@ class ToDoListViewModel extends BaseViewModel {
     );
 
     if (result != null && result == true) {
-      fetchData();
+      fetchToDoList();
     }
   }
 
@@ -56,7 +56,7 @@ class ToDoListViewModel extends BaseViewModel {
     );
 
     if (result != null && result == true) {
-      fetchData();
+      fetchToDoList();
     }
   }
 
@@ -69,7 +69,7 @@ class ToDoListViewModel extends BaseViewModel {
     });
   }
 
-  Future<void> fetchSearchData() async {
+  Future<void> fetchToDoSearchData() async {
     List<ToDo> searchList = toDoList.where((element) {
       return element.title
           .toLowerCase()
@@ -77,8 +77,9 @@ class ToDoListViewModel extends BaseViewModel {
     }).toList();
 
     if (searchTextController.text.isEmpty) {
-      fetchData();
+      fetchToDoList();
     } else {
+      print('hello');
       toDoList = searchList;
     }
 
@@ -99,7 +100,7 @@ class ToDoListViewModel extends BaseViewModel {
         TextButton(
           onPressed: () async {
             await deleteTodoList(index: index);
-            fetchData();
+            fetchToDoList();
             Get.back();
           },
           child: const Text('Delete'),
