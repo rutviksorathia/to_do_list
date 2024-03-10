@@ -134,13 +134,12 @@ class TodoUpsertView extends StatelessWidget {
                           controller: model.titleController,
                           decoration: const InputDecoration(
                             hintText: 'Title goes here...',
+                            contentPadding:
+                                EdgeInsets.only(left: 10, right: 10),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(10),
                               ),
-                            ),
-                            constraints: BoxConstraints.tightFor(
-                              height: 50,
                             ),
                           ),
                         ),
@@ -160,13 +159,12 @@ class TodoUpsertView extends StatelessWidget {
                         minLines: 4,
                         decoration: const InputDecoration(
                           hintText: 'Start typing here...',
+                          contentPadding:
+                              EdgeInsets.only(left: 10, right: 10, top: 10),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(10),
                             ),
-                          ),
-                          constraints: BoxConstraints.expand(
-                            height: 100,
                           ),
                         ),
                       ),

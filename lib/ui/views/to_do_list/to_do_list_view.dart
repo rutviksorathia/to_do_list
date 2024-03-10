@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -61,7 +62,8 @@ class ToDoListView extends StatelessWidget {
                         child: TextField(
                           controller: model.searchTextController,
                           decoration: const InputDecoration(
-                            hintText: 'Search',
+                            prefixIcon: Icon(Icons.search),
+                            hintText: 'Search...',
                             contentPadding: EdgeInsets.only(left: 10),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(

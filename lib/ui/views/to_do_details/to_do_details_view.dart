@@ -115,7 +115,7 @@ class TodoDetailsView extends StatelessWidget {
                           Text(
                             model.toDo.description,
                             style: const TextStyle(
-                              fontSize: 32,
+                              fontSize: 26,
                               color: Color(0xFF7C7C7C),
                             ),
                           ),
@@ -125,31 +125,37 @@ class TodoDetailsView extends StatelessWidget {
                   ),
                 ),
                 if (model.toDo.status != ToDoStatus.done)
-                  BaseTimer(
-                    start: model.toDo.time,
-                    status: model.selectedStatus,
-                    tapPlayButtonTap: (time) async {
-                      model.selectedStatus = ToDoStatus.inProgress;
-                      model.toDo.status = model.selectedStatus;
-                      model.toDo.time = time;
-                      model.shouldShowEditButton = false;
-                      model.updateToDoDetails(model.toDo);
-                      model.notifyListeners();
-                    },
-                    tapStopButtonTap: (int) {
-                      model.toDo.time = int;
-                      model.updateToDoDetails(model.toDo);
-                      model.shouldShowEditButton = true;
-                      model.notifyListeners();
-                    },
-                    tapFinishButtonTap: () {
-                      model.selectedStatus = ToDoStatus.done;
-                      model.toDo.status = model.selectedStatus;
-                      model.toDo.time = 0;
-                      model.shouldShowEditButton = true;
-                      model.updateToDoDetails(model.toDo);
-                      model.notifyListeners();
-                    },
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: 18,
+                        right: 18,
+                        bottom: MediaQuery.of(context).padding.bottom),
+                    child: BaseTimer(
+                      start: model.toDo.time,
+                      status: model.selectedStatus,
+                      tapPlayButtonTap: (time) async {
+                        model.selectedStatus = ToDoStatus.inProgress;
+                        model.toDo.status = model.selectedStatus;
+                        model.toDo.time = time;
+                        model.shouldShowEditButton = false;
+                        model.updateToDoDetails(model.toDo);
+                        model.notifyListeners();
+                      },
+                      tapStopButtonTap: (int) {
+                        model.toDo.time = int;
+                        model.updateToDoDetails(model.toDo);
+                        model.shouldShowEditButton = true;
+                        model.notifyListeners();
+                      },
+                      tapFinishButtonTap: () {
+                        model.selectedStatus = ToDoStatus.done;
+                        model.toDo.status = model.selectedStatus;
+                        model.toDo.time = 0;
+                        model.shouldShowEditButton = true;
+                        model.updateToDoDetails(model.toDo);
+                        model.notifyListeners();
+                      },
+                    ),
                   )
                 else
                   Container(

@@ -109,104 +109,12 @@ class _BaseTimerState extends State<BaseTimer> {
     print(widget.start);
     return Column(
       children: <Widget>[
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 18),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              if (widget.status == ToDoStatus.created)
-                ElevatedButton(
-                  onPressed: () => startButton(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF7C3AED),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: const Text(
-                    'Start',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              if (widget.status == ToDoStatus.inProgress &&
-                  timer != null &&
-                  !timer!.isActive)
-                ElevatedButton(
-                  onPressed: () => playTimer(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF7C3AED),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: const Text(
-                    'Play',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              if (widget.status == ToDoStatus.inProgress &&
-                  timer != null &&
-                  timer!.isActive)
-                ElevatedButton(
-                  onPressed: () => pauseTimer(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF7C3AED),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: const Text(
-                    'Pause',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              Container(
-                decoration: ShapeDecoration(
-                  shape: SmoothRectangleBorder(
-                    smoothness: 1.0,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  color: Colors.grey[200],
-                ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Text(
-                    time != null ? '$time' : timeConverter(widget.start),
-                    style: const TextStyle(
-                      fontSize: 24,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            if (widget.status == ToDoStatus.created)
               ElevatedButton(
-                onPressed: () => stopTimer(),
+                onPressed: () => startButton(),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF7C3AED),
                   padding: const EdgeInsets.symmetric(
@@ -218,7 +126,7 @@ class _BaseTimerState extends State<BaseTimer> {
                   ),
                 ),
                 child: const Text(
-                  'Finish',
+                  'Start',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white,
@@ -226,8 +134,97 @@ class _BaseTimerState extends State<BaseTimer> {
                   ),
                 ),
               ),
-            ],
-          ),
+            if (widget.status == ToDoStatus.inProgress &&
+                timer != null &&
+                !timer!.isActive)
+              ElevatedButton(
+                onPressed: () => playTimer(),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF7C3AED),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: const Text(
+                  'Play',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            if (widget.status == ToDoStatus.inProgress &&
+                timer != null &&
+                timer!.isActive)
+              ElevatedButton(
+                onPressed: () => pauseTimer(),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF7C3AED),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: const Text(
+                  'Pause',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            Container(
+              decoration: ShapeDecoration(
+                shape: SmoothRectangleBorder(
+                  smoothness: 1.0,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                color: Colors.grey[200],
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Text(
+                  time != null ? '$time' : timeConverter(widget.start),
+                  style: const TextStyle(
+                    fontSize: 24,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () => stopTimer(),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF7C3AED),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: const Text(
+                'Finish',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );
