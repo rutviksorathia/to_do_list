@@ -1,16 +1,34 @@
-# to_do_list
+## to_do_list
 
-A new Flutter project.
+Welcome to the to_do_list assessment
 
-## Getting Started
+1) Register Screen 
+<img src="https://github.com/rutviksorathia/to_do_list/assets/102571216/2b062be1-a20b-405b-87e2-5b92e9bae7f6" width="20%" height="20%">
 
-This project is a starting point for a Flutter application.
+2) Login Screen
+<img src="https://github.com/rutviksorathia/to_do_list/assets/102571216/af0f0bf5-785f-4b4e-b26e-f81ea1c3c7dc" width="20%" height="20%">
 
-A few resources to get you started if this is your first Flutter project:
+3) ToDo HomeView
+<img src="https://github.com/rutviksorathia/to_do_list/assets/102571216/c7e57d0a-788b-47f1-94fc-8d41195fb4c2" width="20%" height="20%">
+<img src="https://github.com/rutviksorathia/to_do_list/assets/102571216/714003cd-51bb-4f71-8878-b27191f97ae7" width="20%" height="20%">
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+4) ToDo AddView
+<img src="https://github.com/rutviksorathia/to_do_list/assets/102571216/5025bd3c-9849-448f-b7f6-4d9dd448e761" width="20%" height="20%">
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+5) ToDo UpdateView
+<img src="https://github.com/rutviksorathia/to_do_list/assets/102571216/8fcd72a2-2b1c-4b39-82cb-b1fb2092d8cc" width="20%" height="20%">
+
+6) ToDo detailsView
+<img src="https://github.com/rutviksorathia/to_do_list/assets/102571216/f97970a8-133b-4c3a-a1f7-abc67e2569b8" width="20%" height="20%">
+
+
+
+
+
+
+
+
+
+
+
+
