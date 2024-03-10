@@ -63,7 +63,7 @@ class ToDoListViewModel extends BaseViewModel {
   void handleLogoutButtonTap() async {
     final auth = FirebaseAuth.instance;
     await auth.signOut().then((value) {
-      Get.to(
+      Get.offAll(
         () => const LoginView(isLogin: true),
       );
     });

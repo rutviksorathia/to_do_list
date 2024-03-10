@@ -102,7 +102,7 @@ class LoginViewModel extends BaseViewModel {
         password: password,
       );
 
-      Get.to(() => const ToDoListView());
+      Get.offAll(() => const ToDoListView());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Get.snackbar('Error', 'The password provided is too weak.',
@@ -140,7 +140,7 @@ class LoginViewModel extends BaseViewModel {
         email: email,
         password: password,
       );
-      Get.to(() => const ToDoListView());
+      Get.offAll(() => const ToDoListView());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         Get.snackbar('Error', 'No user found for that email.',

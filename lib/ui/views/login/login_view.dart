@@ -67,7 +67,7 @@ class LoginView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            model.isLogin ? 'Login' : 'Register ',
+                            model.isLogin ? 'Login' : 'Register',
                             style: const TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.bold,
