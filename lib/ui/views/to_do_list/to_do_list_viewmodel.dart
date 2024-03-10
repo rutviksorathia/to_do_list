@@ -86,9 +86,26 @@ class ToDoListViewModel extends BaseViewModel {
   }
 
   Future<void> handleDeleteToDoButtonTap(int index) async {
-    await deleteTodoList(index: index);
-
-    fetchData();
+    Get.defaultDialog(
+      title: 'Delete',
+      middleText: 'Are you sure you want to delete?',
+      actions: [
+        TextButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () async {
+            await deleteTodoList(index: index);
+            fetchData();
+            Get.back();
+          },
+          child: const Text('Delete'),
+        ),
+      ],
+    );
     notifyListeners();
   }
 }

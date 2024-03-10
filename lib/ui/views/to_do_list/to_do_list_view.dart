@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
 import 'package:to_do_list/models/toDoList/modelToDoList.dart';
@@ -57,14 +58,11 @@ class ToDoListView extends StatelessWidget {
                       Flexible(
                         flex: 1,
                         fit: FlexFit.tight,
-                        child: TextFormField(
+                        child: TextField(
                           controller: model.searchTextController,
                           decoration: const InputDecoration(
                             hintText: 'Search',
-                            prefixIcon: Icon(
-                              Icons.search,
-                              color: Colors.grey,
-                            ),
+                            contentPadding: EdgeInsets.only(left: 10),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(10),
@@ -82,7 +80,7 @@ class ToDoListView extends StatelessWidget {
                               backgroundColor: const Color(0xFF7C3AED),
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 20,
-                                vertical: 10,
+                                vertical: 14,
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
