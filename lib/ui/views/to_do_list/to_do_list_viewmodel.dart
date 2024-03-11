@@ -79,7 +79,6 @@ class ToDoListViewModel extends BaseViewModel {
     if (searchTextController.text.isEmpty) {
       fetchToDoList();
     } else {
-      print('hello');
       toDoList = searchList;
     }
 
