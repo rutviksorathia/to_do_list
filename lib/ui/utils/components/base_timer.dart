@@ -93,7 +93,6 @@ class _BaseTimerState extends State<BaseTimer> {
 
   @override
   void didUpdateWidget(covariant BaseTimer oldWidget) {
-    print('hello');
     widget.start = widget.start;
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);

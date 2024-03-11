@@ -22,7 +22,6 @@ class ToDoListViewModel extends BaseViewModel {
   }
 
   ToDo? addingDat;
-
   List<ToDo> toDoList = [];
 
   Future<void> fetchToDoList() async {
