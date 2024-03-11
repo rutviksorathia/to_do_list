@@ -74,7 +74,8 @@ class ToDoListView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      if (model.toDoList.isNotEmpty)
+                      if (model.toDoList.isNotEmpty ||
+                          model.searchTextController.text.isNotEmpty)
                         Padding(
                           padding: const EdgeInsets.only(left: 10),
                           child: ElevatedButton(
@@ -150,55 +151,80 @@ class ToDoListView extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    'Your Task List of',
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w600,
+                              if (model.toDoList.isEmpty &&
+                                  model.searchTextController.text.isEmpty)
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          'Your Task List of',
+                                          style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 5),
+                                        Text(
+                                          'Empty',
+                                          style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.purple.shade700,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Text(
-                                    'Empty',
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.purple.shade700,
+                                    const Text(
+                                      'Add your regular day to day task now by clicking the below Button',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              const Text(
-                                'Add your regular day to day task now by clicking the below Button',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                              ElevatedButton(
-                                onPressed: () => model.handleAddToDoButtonTap(),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF7C3AED),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                    vertical: 10,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                                child: const Text(
-                                  'Add',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
+                                    if (model.toDoList.isEmpty &&
+                                        model.searchTextController.text.isEmpty)
+                                      ElevatedButton(
+                                        onPressed: () =>
+                                            model.handleAddToDoButtonTap(),
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              const Color(0xFF7C3AED),
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 20,
+                                            vertical: 10,
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                        child: const Text(
+                                          'Add',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                )
+                              else
+                                const Column(
+                                  children: [
+                                    SizedBox(height: 10),
+                                    Text(
+                                      'No toDo item Found yet.',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                )
                             ],
                           ),
                         const SizedBox(height: 12),
